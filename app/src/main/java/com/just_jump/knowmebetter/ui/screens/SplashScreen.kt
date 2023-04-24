@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,9 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.just_jump.knowmebetter.R
+import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(onNavigate: () -> Unit) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -28,19 +30,25 @@ fun SplashScreen() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Add the logo here
+            // Add the logo here.
             Image(
                 painter = painterResource(id = R.mipmap.logo),
                 contentDescription = "Logo",
                 modifier = Modifier.size(300.dp)
             )
 
-            // Add the slogan here
+            // Add the slogan here.
             Text(
                 text = stringResource(R.string.slogan_app),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
+
+            // delay until jump the de category select.
+            LaunchedEffect(Unit) {
+                delay(1000)
+                onNavigate()
+            }
         }
     }
 }

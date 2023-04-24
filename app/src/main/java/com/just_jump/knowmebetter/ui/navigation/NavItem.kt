@@ -11,5 +11,5 @@ sealed class NavItem(val route: String) {
     object SelectCategory : NavItem("selectCategory")
 
     //Screen #3
-    object ShowCategory : NavItem("showCategory")
+    object ShowQuestion : NavItem("showQuestion")
 }
