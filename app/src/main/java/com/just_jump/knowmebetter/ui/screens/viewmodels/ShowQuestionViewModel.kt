@@ -10,6 +10,7 @@ import com.just_jump.knowmebetter.utilities.getCategory
 import com.just_jump.knowmebetter.utilities.getCategoryNameById
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.Random
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,12 +21,26 @@ class ShowQuestionViewModel @Inject constructor(
     private val _questionsList = MutableLiveData<ArrayList<QuestionDataModel>>()
     val questionsList: LiveData<ArrayList<QuestionDataModel>> = _questionsList
 
-    fun getQuestions(idCategory: Int) = viewModelScope.launch {
+    private val random = Random()
+
+    fun getQuestion(): String {
+        var result = ""
+        _questionsList.value?.let { questionsList ->
+            if (_questionsList.value!!.isNotEmpty()) {
+                if (questionsList.isNotEmpty()) {
+                    result = questionsList[random.nextInt(questionsList.size)].question
+                }
+            } else {
+                result = "List is empty!!"
+            }
+        }
+        return result
+    }
+
+    fun getQuestionsList(idCategory: Int) = viewModelScope.launch {
         val categoryName = getCategoryNameById(idCategory, getCategory())
         getQuestionsUsecases.invoke(categoryName) { result ->
-            if (result.size > 0){
-                _questionsList.postValue(result)
-            }
+            _questionsList.postValue(result)
         }
     }
 }

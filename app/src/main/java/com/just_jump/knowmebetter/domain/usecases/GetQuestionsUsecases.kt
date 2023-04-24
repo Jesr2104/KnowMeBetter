@@ -10,13 +10,14 @@ class GetQuestionsUsecases @Inject constructor(
     suspend fun invoke(categoryName: String?, onResult: (ArrayList<QuestionDataModel>) -> Unit) {
         getQuestionsRepository.getQuestions { questionsList ->
             val filterList = arrayListOf<QuestionDataModel>()
-            questionsList.forEach { item ->
-                if (categoryName != "Mixed category") {
+
+            if (categoryName == "Mixed category") {
+                filterList.addAll(questionsList)
+            } else {
+                questionsList.forEach { item ->
                     if (item.category == categoryName) {
                         filterList.add(item)
                     }
-                } else {
-                    onResult(questionsList)
                 }
             }
             onResult(filterList)

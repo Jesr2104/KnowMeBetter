@@ -29,32 +29,38 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.just_jump.knowmebetter.ui.components.LoaderCircular
 import com.just_jump.knowmebetter.ui.screens.viewmodels.ShowQuestionViewModel
-import java.util.Random
 
 @ExperimentalMaterial3Api
 @Composable
 fun ShowQuestionScreen(idCategory: Int, onClickToBack: () -> Unit) {
 
-    val random = Random()
-
-    // instance of the viewModel
+    // instance of the viewModel.
     val viewModel = hiltViewModel<ShowQuestionViewModel>()
 
-    // var to check the single execution on the api call.
+    // var to check the singles executions.
     var checkExecute: Boolean by remember { mutableStateOf(true) }
+    var loadingExecute: Boolean by remember { mutableStateOf(false) }
 
+    // var to control when show and hide the loader.
+    var loaderControl by remember { mutableStateOf(false) }
+
+    // var to save the question.
     var questions by remember { mutableStateOf("") }
 
+    // observable to check when the list if update.
     viewModel.questionsList.observeForever {
-        questions = it[random.nextInt(it.size)].question
+        loadingExecute = true
+        loaderControl = false
+        questions = viewModel.getQuestion()
     }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "titleScreen", fontWeight = FontWeight.Bold)
+                    Text(text = "Questions", fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
                     IconButton(onClick = { onClickToBack() }) {
@@ -77,18 +83,18 @@ fun ShowQuestionScreen(idCategory: Int, onClickToBack: () -> Unit) {
                     .padding(top = it.calculateTopPadding())
                     .fillMaxSize()
                     .clickable {
-                        if (viewModel.questionsList.value!!.size > 0) {
-                            questions =
-                                viewModel.questionsList.value!![random.nextInt(viewModel.questionsList.value!!.size)].question
-                        }
+                        questions = viewModel.getQuestion()
                     },
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 if (checkExecute) {
-                    viewModel.getQuestions(idCategory)
+                    questions = "Load Questions!!"
+                    viewModel.getQuestionsList(idCategory)
                     checkExecute = false
+                    loaderControl = true
                 }
+
                 Text(
                     text = questions,
                     fontSize = 25.sp,
@@ -99,6 +105,9 @@ fun ShowQuestionScreen(idCategory: Int, onClickToBack: () -> Unit) {
                     modifier = Modifier
                         .padding(25.dp)
                 )
+                if (loaderControl) {
+                    LoaderCircular()
+                }
             }
         }
     )
