@@ -29,12 +29,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 import com.just_jump.knowmebetter.ui.components.LoaderCircular
 import com.just_jump.knowmebetter.ui.screens.viewmodels.ShowQuestionViewModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun ShowQuestionScreen(idCategory: Int, onClickToBack: () -> Unit) {
+fun ShowQuestionScreen(configQuestions: ConfigQuestionsDataModel, onClickToBack: () -> Unit) {
 
     // instance of the viewModel.
     val viewModel = hiltViewModel<ShowQuestionViewModel>()
@@ -90,7 +91,7 @@ fun ShowQuestionScreen(idCategory: Int, onClickToBack: () -> Unit) {
             ) {
                 if (checkExecute) {
                     questions = "Load Questions!!"
-                    viewModel.getQuestionsList(idCategory)
+                    viewModel.getQuestionsList(configQuestions)
                     checkExecute = false
                     loaderControl = true
                 }

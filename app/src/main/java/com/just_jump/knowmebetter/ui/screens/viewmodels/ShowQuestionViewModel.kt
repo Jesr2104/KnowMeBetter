@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 import com.just_jump.knowmebetter.domain.datamodels.QuestionDataModel
 import com.just_jump.knowmebetter.domain.usecases.GetQuestionsUsecases
 import com.just_jump.knowmebetter.utilities.getCategory
@@ -37,9 +38,9 @@ class ShowQuestionViewModel @Inject constructor(
         return result
     }
 
-    fun getQuestionsList(idCategory: Int) = viewModelScope.launch {
-        val categoryName = getCategoryNameById(idCategory, getCategory())
-        getQuestionsUsecases.invoke(categoryName) { result ->
+    fun getQuestionsList(configQuestions: ConfigQuestionsDataModel) = viewModelScope.launch {
+        val categoryName = getCategoryNameById(configQuestions.category, getCategory())
+        getQuestionsUsecases.invoke(categoryName, configQuestions.language) { result ->
             _questionsList.postValue(result)
         }
     }

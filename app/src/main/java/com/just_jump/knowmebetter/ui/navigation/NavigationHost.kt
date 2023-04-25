@@ -6,6 +6,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 import com.just_jump.knowmebetter.ui.screens.SelectCategoryScreen
 import com.just_jump.knowmebetter.ui.screens.ShowQuestionScreen
 import com.just_jump.knowmebetter.ui.screens.SplashScreen
@@ -14,7 +15,7 @@ import com.just_jump.knowmebetter.utilities.passOnDataGet
 import com.just_jump.knowmebetter.utilities.passOnDataSet
 
 // Key for Parameters
-const val KEY_ID_CATEGORY = "idCategory"
+const val KEY_CONFIG_QUESTION = "configQuestions"
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
@@ -30,17 +31,17 @@ fun NavigationHost(navController: NavHostController) {
             }
 
             composable(route = NavItem.SelectCategory.route) {
-                SelectCategoryScreen {
-                    navController.passOnDataSet(key = KEY_ID_CATEGORY, value = it)
+                SelectCategoryScreen { configQuestions ->
+                    navController.passOnDataSet(key = KEY_CONFIG_QUESTION, value = configQuestions)
                     navController.navigate(NavItem.ShowQuestion.route)
                 }
             }
 
             composable(route = NavItem.ShowQuestion.route) {
-                val idCategory = navController.passOnDataGet<Int>(KEY_ID_CATEGORY)
-                if (idCategory != null) {
+                val configQuestions = navController.passOnDataGet<ConfigQuestionsDataModel>(KEY_CONFIG_QUESTION)
+                if (configQuestions != null) {
                     ShowQuestionScreen(
-                        idCategory
+                        configQuestions
                     ) { navController.popBackStack() }
                 }
             }

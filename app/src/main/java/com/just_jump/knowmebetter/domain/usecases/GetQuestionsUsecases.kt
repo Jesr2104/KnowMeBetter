@@ -7,8 +7,12 @@ import javax.inject.Inject
 class GetQuestionsUsecases @Inject constructor(
     private val getQuestionsRepository: GetQuestionsRepository,
 ) {
-    suspend fun invoke(categoryName: String?, onResult: (ArrayList<QuestionDataModel>) -> Unit) {
-        getQuestionsRepository.getQuestions { questionsList ->
+    suspend fun invoke(
+        categoryName: String?,
+        language: String,
+        onResult: (ArrayList<QuestionDataModel>) -> Unit
+    ) {
+        getQuestionsRepository.getQuestions(language) { questionsList ->
             val filterList = arrayListOf<QuestionDataModel>()
 
             if (categoryName == "Mixed category") {

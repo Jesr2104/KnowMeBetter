@@ -14,15 +14,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.just_jump.knowmebetter.domain.datamodels.CategoryDataModel
+import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun CategoryCard(category: CategoryDataModel, onClick: (Int) -> Unit) {
+fun CategoryCard(
+    category: CategoryDataModel,
+    language: String,
+    onClick: (ConfigQuestionsDataModel) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 5.dp, start = 15.dp, end = 15.dp),
-        onClick = { onClick(category.id) }
+        onClick = { onClick(
+            ConfigQuestionsDataModel(
+                category.id,
+                language
+            )
+        ) }
     ) {
         Column(
             modifier = Modifier.padding(15.dp)
