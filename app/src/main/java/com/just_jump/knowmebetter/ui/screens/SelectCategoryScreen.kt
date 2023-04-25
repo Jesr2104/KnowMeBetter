@@ -1,6 +1,5 @@
 package com.just_jump.knowmebetter.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +13,10 @@ import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,8 +38,13 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
     // instance of the viewModel.
     val viewModel = hiltViewModel<SelectCategoryViewModel>()
 
-    val categories: List<CategoryDataModel> = getCategory()
+    var language by remember { mutableStateOf("") }
 
+    val categories: List<CategoryDataModel> = getCategory(language)
+
+    viewModel.language.observeForever {
+        language = it
+    }
 
     Scaffold(
         topBar = {
@@ -53,8 +61,8 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                      titleContentColor = Color.White,
                  ),
                  actions = {
-                     LanguageDropdownMenu("EN"){
-                         Log.e("Jesr", "Result: $it")
+                     LanguageDropdownMenu(language){
+                         viewModel.setLanguage(it)
                      }
                  }
              )
@@ -78,7 +86,11 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                 )
                 LazyColumn {
                     items(categories) { itemCategory ->
-                        CategoryCard(itemCategory, "EN", onClick)
+                        if (language.isNotEmpty()){
+                            CategoryCard(itemCategory, language, onClick)
+                        } else {
+                            viewModel.getLanguage()
+                        }
                     }
                 }
             }

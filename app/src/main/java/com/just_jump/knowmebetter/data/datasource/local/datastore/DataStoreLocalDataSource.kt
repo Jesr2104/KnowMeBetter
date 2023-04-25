@@ -23,15 +23,17 @@ class DataStoreLocalDataSource @Inject constructor(
     }
 
     suspend fun getLanguageValue(onResult: (String) -> Unit) {
-        var result = ""
-        result = try {
+        try {
             val preferencesKey = stringPreferencesKey(KEY)
-            val preferences =  context.dataStore.data.first()
-            preferences[preferencesKey].toString()
+            val preferences = context.dataStore.data.first()
+            val languageValue = preferences[preferencesKey]
+            if (languageValue != null) {
+                onResult(languageValue.toString())
+            } else {
+                onResult("EN")
+            }
         } catch (e: Exception) {
             e.printStackTrace()
-            "EN"
         }
-        onResult(result)
     }
 }
