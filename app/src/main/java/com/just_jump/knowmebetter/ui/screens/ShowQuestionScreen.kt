@@ -35,8 +35,10 @@ import com.just_jump.knowmebetter.ui.screens.viewmodels.ShowQuestionViewModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun ShowQuestionScreen(configQuestions: ConfigQuestionsDataModel, onClickToBack: () -> Unit) {
-
+fun ShowQuestionScreen(
+    configQuestions: ConfigQuestionsDataModel,
+    onClickToBack: () -> Unit
+) {
     // instance of the viewModel.
     val viewModel = hiltViewModel<ShowQuestionViewModel>()
 
@@ -61,7 +63,15 @@ fun ShowQuestionScreen(configQuestions: ConfigQuestionsDataModel, onClickToBack:
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Questions", fontWeight = FontWeight.Bold)
+                    Text(
+                        text =
+                        when (configQuestions.language) {
+                            "EN" -> "Questions"
+                            "ES" -> "Preguntas"
+                            else -> "Unknown"
+                        },
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 navigationIcon = {
                     IconButton(onClick = { onClickToBack() }) {
@@ -90,7 +100,10 @@ fun ShowQuestionScreen(configQuestions: ConfigQuestionsDataModel, onClickToBack:
                 verticalArrangement = Arrangement.Center
             ) {
                 if (checkExecute) {
-                    questions = "Load Questions!!"
+                    when (configQuestions.language) {
+                        "EN" -> questions = "Load Question!!"
+                        "ES" -> questions = "Cargando pregunta!!"
+                    }
                     viewModel.getQuestionsList(configQuestions)
                     checkExecute = false
                     loaderControl = true

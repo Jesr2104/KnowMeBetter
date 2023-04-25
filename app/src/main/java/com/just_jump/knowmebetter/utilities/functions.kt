@@ -2,7 +2,6 @@ package com.just_jump.knowmebetter.utilities
 
 import androidx.navigation.NavHostController
 import com.just_jump.knowmebetter.domain.datamodels.CategoryDataModel
-import org.intellij.lang.annotations.Language
 
 // Function de Set Data to the serializable
 fun <T> NavHostController.passOnDataSet(key: String, value: T) {

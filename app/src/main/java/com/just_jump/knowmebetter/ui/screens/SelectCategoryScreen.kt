@@ -76,7 +76,12 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Select a category",
+                    text =
+                    when (language) {
+                        "EN" -> "Select a category"
+                        "ES" -> "Seleccione una categoría"
+                        else -> "Unknown"
+                    },
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     fontSize = 30.sp,
