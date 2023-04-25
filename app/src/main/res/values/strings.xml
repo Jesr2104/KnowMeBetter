@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">KnowMeBetter</string>
     <string name="slogan_app">Get to know your friends like never before.</string>
+    <string name="app_version">Version: 1.0v</string>
+    <string name="select_category_en">Select a category</string>
+    <string name="select_category_es">Seleccione una categoría</string>
+    <string name="option_Unknown">Unknown</string>
+    <string name="en">EN</string>
+    <string name="es">ES</string>
 </resources>

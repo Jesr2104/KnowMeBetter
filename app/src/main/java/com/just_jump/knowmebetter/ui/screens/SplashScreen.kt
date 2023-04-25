@@ -38,8 +38,8 @@ fun SplashScreen(onNavigate: () -> Unit) {
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(R.mipmap.background),
-            contentDescription = "Mi imagen de fondo",
+            painter = painterResource(R.mipmap.background_splash_screen),
+            contentDescription = "background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
@@ -74,7 +74,7 @@ fun SplashScreen(onNavigate: () -> Unit) {
                 Spacer(modifier = Modifier.height(25.dp))
 
                 // show the loader
-                if (checkExecute){
+                if (checkExecute) {
                     LoaderCircular()
                 }
 
@@ -87,7 +87,7 @@ fun SplashScreen(onNavigate: () -> Unit) {
             }
 
             Text(
-                text = "Version: 1.0v",
+                text = stringResource(R.string.app_version),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,

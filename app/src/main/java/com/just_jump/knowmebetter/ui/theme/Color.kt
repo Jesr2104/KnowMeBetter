@@ -2,13 +2,22 @@ package com.just_jump.knowmebetter.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
+// My Colors project
+//---------------------------------------------------
+
+// New Colors -->
+val light_grey_color = Color(0xFF878787)
+val dark_grey_color = Color(0xFF383838)
+val dark_grey_1_color = Color(0xFF45474D)
+val light_green_color = Color(0xFF95FFC2)
+val light_1_green_color = Color(0xFF2D9559)
+//---------------------------------------------------
+
+val Purple80 = Color(0xFF005A4C)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
 
-val Purple40 = Color(0xFF6650a4)
+val Purple40 = Color(0xFF005A4C)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val light_grey_color = Color(0xFF878787)
-val light_green_color = Color(0xFF95FFC2)
