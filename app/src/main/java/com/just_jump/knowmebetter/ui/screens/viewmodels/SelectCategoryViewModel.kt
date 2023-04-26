@@ -20,7 +20,7 @@ class SelectCategoryViewModel @Inject constructor(
     val language: LiveData<String> = _language
 
     fun setLanguage(newLanguage: String) = viewModelScope.launch {
-        setLanguageUsecases.invoke(newLanguage){
+        setLanguageUsecases.invoke(newLanguage) {
             _language.postValue(newLanguage)
         }
     }

@@ -4,15 +4,15 @@ import com.just_jump.knowmebetter.data.datasource.local.datastore.DataStoreLocal
 import javax.inject.Inject
 
 class ManagerLanguageRepository @Inject constructor(
-    private val dataSourceLocalDataSource: DataStoreLocalDataSource
+    private val dataSourceLocalDataSource: DataStoreLocalDataSource,
 ) {
-    suspend fun setLanguageValue(language: String, onResult: (Boolean) -> Unit){
-        dataSourceLocalDataSource.setLanguageValue(language){
+    suspend fun setLanguageValue(language: String, onResult: (Boolean) -> Unit) {
+        dataSourceLocalDataSource.setLanguageValue(language) {
             onResult(it)
         }
     }
 
-    suspend fun getLanguageValue(onResult: (String) -> Unit){
+    suspend fun getLanguageValue(onResult: (String) -> Unit) {
         dataSourceLocalDataSource.getLanguageValue {
             onResult(it)
         }

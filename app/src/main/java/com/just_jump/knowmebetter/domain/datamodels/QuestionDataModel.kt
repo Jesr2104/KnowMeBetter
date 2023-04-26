@@ -4,8 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class QuestionDataModel (
+data class QuestionDataModel(
     val id: Int = 0,
     val category: String = "",
-    val question: String = ""
-)  : Parcelable
+    val question: String = "",
+) : Parcelable

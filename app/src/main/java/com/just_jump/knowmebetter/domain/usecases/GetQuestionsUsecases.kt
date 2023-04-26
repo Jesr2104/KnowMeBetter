@@ -10,7 +10,7 @@ class GetQuestionsUsecases @Inject constructor(
     suspend fun invoke(
         categoryName: String?,
         language: String,
-        onResult: (ArrayList<QuestionDataModel>) -> Unit
+        onResult: (ArrayList<QuestionDataModel>) -> Unit,
     ) {
         getQuestionsRepository.getQuestions(language) { questionsList ->
             val filterList = arrayListOf<QuestionDataModel>()

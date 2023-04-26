@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ConfigQuestionsDataModel (
+data class ConfigQuestionsDataModel(
     var category: Int,
-    var language: String
-)  : Parcelable
+    var language: String,
+) : Parcelable

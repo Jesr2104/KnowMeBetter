@@ -38,7 +38,8 @@ fun NavigationHost(navController: NavHostController) {
             }
 
             composable(route = NavItem.ShowQuestion.route) {
-                val configQuestions = navController.passOnDataGet<ConfigQuestionsDataModel>(KEY_CONFIG_QUESTION)
+                val configQuestions =
+                    navController.passOnDataGet<ConfigQuestionsDataModel>(KEY_CONFIG_QUESTION)
                 if (configQuestions != null) {
                     ShowQuestionScreen(
                         configQuestions

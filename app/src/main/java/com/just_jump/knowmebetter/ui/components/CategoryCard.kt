@@ -1,7 +1,6 @@
 package com.just_jump.knowmebetter.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -29,7 +27,6 @@ import com.just_jump.knowmebetter.domain.datamodels.CategoryDataModel
 import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 import com.just_jump.knowmebetter.ui.theme.black_transparent_color
 import com.just_jump.knowmebetter.ui.theme.dark_grey_transparent_color
-import com.just_jump.knowmebetter.ui.theme.light_1_green_color
 import com.just_jump.knowmebetter.ui.theme.light_green_color
 
 @ExperimentalMaterial3Api
