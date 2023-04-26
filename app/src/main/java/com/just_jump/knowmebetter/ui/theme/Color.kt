@@ -9,6 +9,8 @@ import androidx.compose.ui.graphics.Color
 val light_grey_color = Color(0xFF878787)
 val dark_grey_color = Color(0xFF383838)
 val dark_grey_1_color = Color(0xFF45474D)
+val dark_grey_transparent_color = Color(0x7745474D)
+val black_transparent_color = Color(0x20000000)
 val light_green_color = Color(0xFF95FFC2)
 val light_1_green_color = Color(0xFF2D9559)
 //---------------------------------------------------
