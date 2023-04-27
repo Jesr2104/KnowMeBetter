@@ -1,10 +1,17 @@
 package com.just_jump.knowmebetter.ui.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -21,7 +28,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -29,15 +40,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.just_jump.knowmebetter.R
 import com.just_jump.knowmebetter.domain.datamodels.ConfigQuestionsDataModel
 import com.just_jump.knowmebetter.ui.components.LoaderCircular
 import com.just_jump.knowmebetter.ui.screens.viewmodels.ShowQuestionViewModel
+import com.just_jump.knowmebetter.ui.theme.dark_grey_color
+import com.just_jump.knowmebetter.ui.theme.dark_grey_transparent_color
+import com.just_jump.knowmebetter.ui.theme.light_1_green_color
+import com.just_jump.knowmebetter.ui.theme.light_green_color
+import com.just_jump.knowmebetter.utilities.getCategory
+import com.just_jump.knowmebetter.utilities.getCategoryNameById
 
 @ExperimentalMaterial3Api
 @Composable
 fun ShowQuestionScreen(
     configQuestions: ConfigQuestionsDataModel,
-    onClickToBack: () -> Unit
+    onClickToBack: () -> Unit,
 ) {
     // instance of the viewModel.
     val viewModel = hiltViewModel<ShowQuestionViewModel>()
@@ -66,9 +84,9 @@ fun ShowQuestionScreen(
                     Text(
                         text =
                         when (configQuestions.language) {
-                            "EN" -> "Questions"
-                            "ES" -> "Preguntas"
-                            else -> "Unknown"
+                            stringResource(R.string.en) -> stringResource(R.string.question_en)
+                            stringResource(R.string.es) -> stringResource(R.string.question_es)
+                            else -> stringResource(R.string.option_Unknown)
                         },
                         fontWeight = FontWeight.Bold
                     )
@@ -77,51 +95,109 @@ fun ShowQuestionScreen(
                     IconButton(onClick = { onClickToBack() }) {
                         Icon(
                             Icons.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.content_description_back),
                             tint = Color.White
                         )
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = Color.Gray,
+                    containerColor = dark_grey_color,
                     titleContentColor = Color.White,
                 )
             )
         },
         content = {
-            Column(
+            Box(
                 modifier = Modifier
-                    .padding(top = it.calculateTopPadding())
                     .fillMaxSize()
-                    .clickable {
-                        questions = viewModel.getQuestion()
-                    },
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                    .padding(top = it.calculateTopPadding())
+                    .clickable { questions = viewModel.getQuestion() }
             ) {
-                if (checkExecute) {
-                    when (configQuestions.language) {
-                        "EN" -> questions = "Load Question!!"
-                        "ES" -> questions = "Cargando pregunta!!"
+                Image(
+                    painter = painterResource(R.mipmap.background_show_question_screen),
+                    contentDescription = stringResource(R.string.content_description_background),
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Category",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = light_1_green_color
+                    )
+                    getCategoryNameById(
+                        configQuestions.category,
+                        getCategory("EN")
+                    )?.let { category ->
+                        Text(
+                            text = category,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = light_green_color
+                        )
                     }
-                    viewModel.getQuestionsList(configQuestions)
-                    checkExecute = false
-                    loaderControl = true
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.Center)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth(0.9f)
+                            .fillMaxHeight(0.7f)
+                            .clip(RoundedCornerShape(30.dp))
+                            .background(dark_grey_transparent_color),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        if (checkExecute) {
+                            when (configQuestions.language) {
+                                stringResource(R.string.en) -> questions =
+                                    stringResource(R.string.load_question_en)
+
+                                stringResource(R.string.es) -> questions =
+                                    stringResource(R.string.load_question_es)
+                            }
+                            viewModel.getQuestionsList(configQuestions)
+                            checkExecute = false
+                            loaderControl = true
+                        }
+
+                        Text(
+                            text = questions,
+                            color = Color.White,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic,
+                            fontFamily = FontFamily.SansSerif,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .padding(25.dp)
+                        )
+                        if (loaderControl) {
+                            LoaderCircular()
+                        }
+                    }
                 }
 
                 Text(
-                    text = questions,
-                    fontSize = 25.sp,
+                    text = "Touch the screen to get a new question.",
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic,
-                    fontFamily = FontFamily.SansSerif,
-                    textAlign = TextAlign.Center,
+                    color = light_green_color,
                     modifier = Modifier
-                        .padding(25.dp)
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 10.dp)
                 )
-                if (loaderControl) {
-                    LoaderCircular()
-                }
             }
         }
     )

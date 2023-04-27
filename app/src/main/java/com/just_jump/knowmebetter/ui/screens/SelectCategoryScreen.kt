@@ -71,7 +71,7 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
             SmallTopAppBar(
                 title = {
                     Text(
-                        text = "Know Me Better!!",
+                        text = stringResource(R.string.app_name_full),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -94,8 +94,8 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                     .padding(top = it.calculateTopPadding())
             ) {
                 Image(
-                    painter = painterResource(R.mipmap.background_select_category),
-                    contentDescription = "background",
+                    painter = painterResource(R.mipmap.background_select_category_screen),
+                    contentDescription = stringResource(R.string.content_description_background),
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
@@ -129,8 +129,8 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                                 .padding(
                                     start = 20.dp,
                                     end = 35.dp,
-                                    top = 20.dp,
-                                    bottom = 20.dp
+                                    top = 15.dp,
+                                    bottom = 15.dp
                                 ),
                             style = TextStyle(
                                 shadow = Shadow(
