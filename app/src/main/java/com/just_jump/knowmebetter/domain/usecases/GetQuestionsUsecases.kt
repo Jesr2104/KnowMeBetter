@@ -14,7 +14,7 @@ class GetQuestionsUsecases @Inject constructor(
         language: String,
         onResult: (ArrayList<QuestionDataModel>) -> Unit,
     ) {
-        getQuestionsRepository.getQuestionsFromRoom(language) { questionsList ->
+        getQuestionsRepository.getQuestionsFromRoom() { questionsList ->
             val filterList = arrayListOf<QuestionDataModel>()
 
             if (questionsList.isNotEmpty()) {

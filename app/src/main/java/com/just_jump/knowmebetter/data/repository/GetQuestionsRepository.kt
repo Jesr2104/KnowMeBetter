@@ -16,7 +16,7 @@ class GetQuestionsRepository @Inject constructor(
         }
     }
 
-    suspend fun getQuestionsFromRoom(language: String, onResult: (ArrayList<QuestionDataModel>) -> Unit){
+    suspend fun getQuestionsFromRoom(onResult: (ArrayList<QuestionDataModel>) -> Unit){
         questionsLocalDataSource.getAllQuestions { QuestionsList ->
             val result = QuestionsList.map{ it.toDomain() } as ArrayList<QuestionDataModel>
             onResult(result)
