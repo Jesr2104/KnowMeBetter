@@ -111,7 +111,11 @@ fun ShowQuestionScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = it.calculateTopPadding())
-                    .clickable { questions = viewModel.getQuestion() }
+                    .clickable {
+                        if (loadingExecute) {
+                            questions = viewModel.getQuestion()
+                        }
+                    }
             ) {
                 Image(
                     painter = painterResource(R.mipmap.background_show_question_screen),
@@ -127,14 +131,19 @@ fun ShowQuestionScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Category",
+                        text =
+                        when (configQuestions.language) {
+                            stringResource(R.string.en) -> stringResource(R.string.category_en)
+                            stringResource(R.string.es) -> stringResource(R.string.category_es)
+                            else -> stringResource(R.string.option_Unknown)
+                        },
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = light_1_green_color
                     )
                     getCategoryNameById(
                         configQuestions.category,
-                        getCategory("EN")
+                        getCategory(configQuestions.language)
                     )?.let { category ->
                         Text(
                             text = category,
@@ -190,7 +199,12 @@ fun ShowQuestionScreen(
                 }
 
                 Text(
-                    text = "Touch the screen to get a new question.",
+                    text =
+                    when (configQuestions.language) {
+                        stringResource(R.string.en) -> stringResource(R.string.message_touch_screen_en)
+                        stringResource(R.string.es) -> stringResource(R.string.message_touch_screen_es)
+                        else -> stringResource(R.string.option_Unknown)
+                    },
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = light_green_color,
