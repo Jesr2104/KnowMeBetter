@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.just_jump.knowmebetter.domain.usecases.ClearRoomDBUseCases
 import com.just_jump.knowmebetter.domain.usecases.GetLanguageUsecases
 import com.just_jump.knowmebetter.domain.usecases.SetLanguageUsecases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class SelectCategoryViewModel @Inject constructor(
     private val setLanguageUsecases: SetLanguageUsecases,
     private val getLanguageUsecases: GetLanguageUsecases,
+    private val clearRoomDBUseCases: ClearRoomDBUseCases
 ) : ViewModel() {
 
     private val _language = MutableLiveData<String>()
@@ -29,5 +31,9 @@ class SelectCategoryViewModel @Inject constructor(
         getLanguageUsecases.invoke {
             _language.postValue(it)
         }
+    }
+
+    fun clearAllRoomDB() = viewModelScope.launch {
+        clearRoomDBUseCases.invoke()
     }
 }

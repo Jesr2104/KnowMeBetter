@@ -1,8 +1,9 @@
 package com.just_jump.knowmebetter.domain.usecases
 
-import android.util.Log
 import com.just_jump.knowmebetter.data.repository.GetQuestionsRepository
 import com.just_jump.knowmebetter.domain.datamodels.QuestionDataModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GetQuestionsUsecases @Inject constructor(
@@ -13,19 +14,43 @@ class GetQuestionsUsecases @Inject constructor(
         language: String,
         onResult: (ArrayList<QuestionDataModel>) -> Unit,
     ) {
-        Log.e("Jesr","$categoryName")
-        getQuestionsRepository.getQuestions(language) { questionsList ->
+        getQuestionsRepository.getQuestionsFromRoom(language) { questionsList ->
             val filterList = arrayListOf<QuestionDataModel>()
-            if (categoryName == "Mixed category" || categoryName == "Categoría mixta") {
-                filterList.addAll(questionsList)
+
+            if (questionsList.isNotEmpty()) {
+                GlobalScope.launch {
+                    if (categoryName == "Mixed category" || categoryName == "Categoría mixta") {
+                        filterList.addAll(questionsList)
+                    } else {
+                        questionsList.forEach { item ->
+                            if (item.category == categoryName) {
+                                filterList.add(item)
+                            }
+                        }
+                    }
+                    onResult(filterList)
+                }
             } else {
-                questionsList.forEach { item ->
-                    if (item.category == categoryName) {
-                        filterList.add(item)
+                GlobalScope.launch {
+                    getQuestionsRepository.getQuestionsFromApi(language) { questionsList ->
+                        GlobalScope.launch {
+                            getQuestionsRepository.clearAllQuestions()
+                            getQuestionsRepository.insertQuestions(questionsList)
+                        }
+
+                        if (categoryName == "Mixed category" || categoryName == "Categoría mixta") {
+                            filterList.addAll(questionsList)
+                        } else {
+                            questionsList.forEach { item ->
+                                if (item.category == categoryName) {
+                                    filterList.add(item)
+                                }
+                            }
+                        }
+                        onResult(filterList)
                     }
                 }
             }
-            onResult(filterList)
         }
     }
 }

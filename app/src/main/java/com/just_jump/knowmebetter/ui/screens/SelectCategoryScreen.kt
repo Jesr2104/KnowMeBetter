@@ -83,6 +83,7 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
                 actions = {
                     LanguageDropdownMenu(language) {
                         viewModel.setLanguage(it)
+                        viewModel.clearAllRoomDB()
                     }
                 }
             )

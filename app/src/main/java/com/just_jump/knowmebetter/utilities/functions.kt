@@ -1,7 +1,9 @@
 package com.just_jump.knowmebetter.utilities
 
 import androidx.navigation.NavHostController
+import com.just_jump.knowmebetter.data.datasource.local.database.entities.QuestionsEntity
 import com.just_jump.knowmebetter.domain.datamodels.CategoryDataModel
+import com.just_jump.knowmebetter.domain.datamodels.QuestionDataModel
 
 // Function de Set Data to the serializable
 fun <T> NavHostController.passOnDataSet(key: String, value: T) {
@@ -16,6 +18,10 @@ inline fun <reified T> NavHostController.passOnDataGet(key: String): T? {
 fun getCategoryNameById(categoryId: Int, categories: List<CategoryDataModel>): String? {
     return categories.find { it.id == categoryId }?.name
 }
+
+fun QuestionsEntity.toDomain() = QuestionDataModel(id, category, question)
+
+fun QuestionDataModel.toDomain() = QuestionsEntity(id, category, question)
 
 fun getCategory(language: String): List<CategoryDataModel> {
     if (language == "ES"){

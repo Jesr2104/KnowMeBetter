@@ -24,8 +24,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.just_jump.knowmebetter.R
 import com.just_jump.knowmebetter.ui.components.LoaderCircular
+import com.just_jump.knowmebetter.ui.screens.viewmodels.SplashViewModel
 import com.just_jump.knowmebetter.ui.theme.light_green_color
 import kotlinx.coroutines.delay
 
@@ -33,6 +35,9 @@ import kotlinx.coroutines.delay
 fun SplashScreen(onNavigate: () -> Unit) {
     // var to check the singles executions.
     var checkExecute: Boolean by remember { mutableStateOf(true) }
+
+    // instance of the viewModel.
+    val viewModel = hiltViewModel<SplashViewModel>()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -81,6 +86,7 @@ fun SplashScreen(onNavigate: () -> Unit) {
                 // delay until jump the de category select.
                 LaunchedEffect(Unit) {
                     delay(1000)
+                    viewModel.clearAllRoomDB()
                     onNavigate()
                     checkExecute = false
                 }

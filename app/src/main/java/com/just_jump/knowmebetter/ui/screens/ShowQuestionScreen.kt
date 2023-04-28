@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -149,7 +150,11 @@ fun ShowQuestionScreen(
                             text = category,
                             fontSize = 25.sp,
                             fontWeight = FontWeight.Bold,
-                            color = light_green_color
+                            color = light_green_color,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(0.85f)
+
                         )
                     }
                 }
@@ -162,7 +167,7 @@ fun ShowQuestionScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth(0.9f)
-                            .fillMaxHeight(0.7f)
+                            .fillMaxHeight(0.60f)
                             .clip(RoundedCornerShape(30.dp))
                             .background(dark_grey_transparent_color),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -189,6 +194,7 @@ fun ShowQuestionScreen(
                             fontStyle = FontStyle.Italic,
                             fontFamily = FontFamily.SansSerif,
                             textAlign = TextAlign.Center,
+                            lineHeight = 34.sp,
                             modifier = Modifier
                                 .padding(25.dp)
                         )

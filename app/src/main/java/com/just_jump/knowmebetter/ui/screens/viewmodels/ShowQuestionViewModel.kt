@@ -39,7 +39,7 @@ class ShowQuestionViewModel @Inject constructor(
     }
 
     fun getQuestionsList(configQuestions: ConfigQuestionsDataModel) = viewModelScope.launch {
-        val categoryName = getCategoryNameById(configQuestions.category, getCategory("ES"))
+        val categoryName = getCategoryNameById(configQuestions.category, getCategory(configQuestions.language))
         getQuestionsUsecases.invoke(categoryName, configQuestions.language) { result ->
             _questionsList.postValue(result)
         }
