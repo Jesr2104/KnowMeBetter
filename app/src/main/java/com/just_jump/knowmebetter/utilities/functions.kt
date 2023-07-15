@@ -38,17 +38,17 @@ fun getCategory(language: String): List<CategoryDataModel> {
             ),
             CategoryDataModel(
                 id = 23456,
-                name = "lista de deseos",
+                name = "Lista de deseos",
                 description = "Preguntas sobre las cosas que quiere hacer antes de morir."
             ),
             CategoryDataModel(
                 id = 34567,
-                name = "temas picantes",
+                name = "Caliente y picante",
                 description = "Preguntas sobre temas controvertidos o tabú."
             ),
             CategoryDataModel(
                 id = 45678,
-                name = "Felicidad y realización personal.",
+                name = "Felicidad y realización personal",
                 description = "Preguntas sobre lo que te hace feliz y realizado."
             ),
             CategoryDataModel(
@@ -58,7 +58,7 @@ fun getCategory(language: String): List<CategoryDataModel> {
             ),
             CategoryDataModel(
                 id = 67890,
-                name = "Valores y creencias personales.",
+                name = "Valores y creencias personales",
                 description = "Preguntas sobre sus valores y creencias fundamentales."
             ),
             CategoryDataModel(
@@ -96,7 +96,7 @@ fun getCategory(language: String): List<CategoryDataModel> {
             ),
             CategoryDataModel(
                 id = 34567,
-                name = "Spicy topics",
+                name = "Hot and spicy",
                 description = "Questions about controversial or taboo subjects."
             ),
             CategoryDataModel(
