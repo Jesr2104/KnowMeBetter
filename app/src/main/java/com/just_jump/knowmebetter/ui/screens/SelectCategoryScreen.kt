@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,7 +57,7 @@ fun SelectCategoryScreen(onClick: (ConfigQuestionsDataModel) -> Unit) {
     val viewModel = hiltViewModel<SelectCategoryViewModel>()
 
     // var the save and get the value of the language  on the view.
-    var language by remember { mutableStateOf("") }
+    var language by rememberSaveable { mutableStateOf("") }
 
     //get all the categories of the selected language.
     val categories: List<CategoryDataModel> = getCategory(language)
